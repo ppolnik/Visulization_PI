@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./style/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Arvo&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
+
+    <title> Projekt Inzynierski</title>
+</head>
+
+<body>
+    <div class="container-main">
+        <div class="header">
+            <img src="https://www.polsl.pl/logo/PublishingImages/Politechnika_Sl_logo_pl/pl/czarnobiale/politechnika_sl_logo_bw_poziom_inwersja_pl_rgb.jpg"
+                class="header__logo">
+            <h1> "Wizualizacja symulowanego procesu przemyslowego z wykorzystaniem technologii
+                internetowych"</h1> 
+        </div>
+
+        <div class="container-process">
+
+            <div class="WaterLevelTank">
+                <p class="WaterLevelTank__description"> Poziom wody w zbiorniku [%]: </p>
+                <input class="WaterLevelTank__value" type="number" name="display" value="0" disabled>
+            </div>
+
+            <div class="WaterLevelTank__dotted-vertical">----------</div>
+            <div class="WaterLevelTank__dotted-horizontal"> ------------------------</div>
+
+            <div class="container-workplace">
+                <!-- Place where can write description about project-->
+                <p class="container-workplace__description"> </p>
+                <div class="container-workplace__image">
+
+                    <div class="tank">
+                        <div class="tank__box">
+                            <div class="tank__liquid">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tank2">
+                        <div class="tank__box2">
+                            <div class="tank__liquid">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="manometr">
+                        <div class="manometr__arrow"></div>
+                    </div>
+
+                    <div class="elektoroValve"></div>
+
+                    <div class="pump"></div>
+
+                    <div class="coilHeater"></div>
+
+                    <div class="flow"></div>
+
+                    <div class="valve_V102"></div>
+
+                    <img class="container-workplace__image__layer"
+                        src="./style/test_stand_layer_tanks-done2-nowire_png.png">
+
+                </div>
+
+            </div>
+
+            <div class="tempHeat">
+                <p class="tempHeat__description"> Temperatura grzałki [°C]: </p>
+                <input class="tempHeat__value" type="number" name="display" value="0" disabled>
+            </div>
+
+            <div class="dotted-vertical">---------------</div>
+            <div class="dotted-horizontal"> ---------------------------------</div>
+
+        </div>
+
+        <div class="container-button">
+            <div class="container-button__button"> 🌣 </div>
+            <div data-type="fill" data-path="M10 10L90 10L90 90L10 90Z" class="ldBar"
+                data-fill="data:ldbar/res,bubble(#248,#fff,50,1)"></div>
+        </div>
+    </div>
+
+    
+</body>
+
+<script src="./script/script.js"></script>
+<script src="https://kit.fontawesome.com/b32bd1ff11.js"></script>
+
+
+
+</html>

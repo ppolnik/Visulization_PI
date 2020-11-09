@@ -1,0 +1,468 @@
+body{
+    background: rgba(255, 255, 255, 1);
+}
+
+.container-main{
+  background-image: url(./background.jpg);
+  background-size: cover;
+}
+
+.WaterLevelTank{
+  display: inline-block;
+  width: 320px;
+  height: 120px;
+  padding: 10px 0 10px 15px;
+  border-color: #53575d;
+  background: rgba(255, 255, 255, 0.6);
+  border-style: solid;
+  border-radius: 3px;
+  border-width: 5px;
+  outline: 0;
+  transition: all .3s ease-in-out;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  
+}
+
+.WaterLevelTank__description{
+  color: rgb(83,87,93);
+  font-size: 25px;
+  padding: 10px;
+  margin-bottom: 0;
+  font-family: 'Oswald', sans-serif;
+}
+
+.WaterLevelTank__value{
+  font-family: 'Open Sans',  sans-serif;
+  font-size: 40px;
+  margin-bottom: 10px;
+  width: 100px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.01);
+  color: #53575d;
+  text-align: center;
+ }
+
+.WaterLevelTank__dotted-horizontal{
+  position: absolute;
+  font-size: 30px;
+  margin-left: -630px; 
+  margin-top: -360px;
+  color: white;
+  z-index: 99999;
+}
+
+.WaterLevelTank__dotted-vertical{
+  position: absolute;
+  font-size: 30px;
+  margin-left: -870px; 
+  margin-top: -255px;
+  color: white;
+  z-index: 99999;
+  transform: rotate(90deg);
+
+
+}
+
+.tempHeat{
+  display: inline-block;
+  width: 255px;
+  height: 120px;
+  padding: 10px 0 10px 15px;
+  border-color: #53575d;
+  background: rgba(255, 255, 255, 0.6);
+  border-style: solid;
+  border-radius: 3px;
+  border-width: 5px;
+  outline: 0;
+  transition: all .3s ease-in-out;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  
+}
+
+.tempHeat__description{
+  color: rgb(83,87,93);
+  font-size: 25px;
+  margin-bottom: 0;
+  font-family: 'Oswald', sans-serif;
+}
+
+.tempHeat__value{
+  font-family: 'Open Sans',  sans-serif;
+  font-size: 40px;
+  margin-top: 10px;
+  width: 100px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.01);
+  color: #53575d;
+  text-align: center;
+}
+
+.dotted-horizontal{
+  position: absolute;
+  font-size: 25px;
+  margin-left: 775px;
+  margin-top: 465px;
+  color: white;
+}
+.dotted-vertical{
+  position: absolute;
+  font-size: 30px;
+  margin-left: 1050px;
+  margin-top: 320px;
+  color: white;
+  transform: rotate(90deg);
+}
+
+.header{
+    background: rgba(0, 0, 0, 1);
+     border-radius: 45px;
+     margin-top: 5px;
+     padding-bottom: 5px;
+     padding-top: 5px;
+     display: flex;
+     justify-content: space-evenly;
+     align-items: center;
+
+}
+
+
+h1{
+    color: rgba(255, 255, 255, 1);
+    font-size: 25px;
+    margin-right: 30px;
+    text-align: center;
+    justify-content: center;
+    clear: both;
+    text-rendering: optimizeLegibility;
+    font-family: 'Arvo',  Italic;
+    letter-spacing: 3px;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.979)
+}
+
+.header__logo {
+    width: 450px;
+    height: 155px;
+    margin-left: 20px;
+    border-bottom-width: 4px;
+    border-bottom-style: solid;
+    border-bottom-color: #000000;
+    border-radius: 6px;
+ }
+
+.container-process{
+    margin: 1% 0.5%;
+    padding-bottom: 2%;
+    background-color: rgba(154 , 130, 89, 0.44);
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    
+}
+
+.container-workplace {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  
+}
+
+/* now without text */
+.container-workplace__description{
+  display: flex;
+  justify-content: center;
+    font-size: 15px ;
+    font-family: 'Josefin Sans', sans-serif;
+    color: rgb(140, 196, 68);;
+    align-items: center;
+}
+
+.container-workplace__image{
+  height: 725px;
+  width: 550px;
+    background-image: url("./test_stand__jpg.jpg") ;
+    background-size: cover;
+}
+
+.container-workplace__image__layer{
+  height: 725px;
+    width: 575px;
+    position: absolute;
+
+}
+
+
+.manometr {
+ margin-left: 257px;
+ margin-top: 100px;
+ z-index: 2;
+ background-size: cover;
+ height: 75px;
+ width: 75px;
+ position: absolute;
+}
+
+.manometr__arrow {
+ height: 20px;
+ width: 2.1px;
+ box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
+ transform: rotate(-135deg);
+ transition: all 10.55s;
+ transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+ background: #131313;
+ margin-top: 31px;
+ margin-left: 35px;
+   
+}
+  
+.manometr__arrow::before {
+ content: "";
+ position: absolute;
+ left: 50%;
+ bottom: 99%;
+ border-left: 0.25rem solid transparent;
+ border-right: 0.25rem solid transparent;
+ border-bottom: 0.5rem solid black;
+ transform: translateX(-50%);
+}
+
+
+.tank{
+ height: 245px;
+ width: 145px;
+margin-left: 55px;
+margin-top: 90px;
+position: absolute;
+}
+
+.tank__box{
+
+ background: rgba( 255, 255, 255, 0.15);
+ -webkit-border-radius: 10px;
+ -moz-border-radius: 10px;
+ border-radius: 10px;
+ width: 145px;
+ height: 285px;
+ position: relative;
+ box-shadow: inset 0 3px 5px 0 rgba(0, 0, 0, 0.2);
+}
+ 
+
+.tank2{
+  height: 140px;
+  width: 245px;
+ margin-left: 380px;
+ margin-top: 345px;
+ position: absolute;
+ }
+ 
+ .tank__box2{
+ 
+  background: rgba( 255, 255, 255, 0.15);
+  width: 145px;
+  height: 280px;
+  position: relative;
+  box-shadow: inset 0 3px 5px 0 rgba(0, 0, 0, 0.2);
+ }
+
+
+
+  
+ .tank__liquid{
+  
+  background: rgba(148, 211, 224, 0.471);
+  background-position: top right;
+  position: absolute;
+  bottom: 0px;
+  width: 145px;
+  height: 200px;
+  -webkit-transition: all 3s ease-out;
+  -moz-transition: all 3s ease-out;
+  -o-transition: all 3s ease-out;
+  transition: all 3s ease-out;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  height: 70%;
+  
+ }
+
+
+ 
+ .elektoroValve {
+  width: 192px;
+  height: 100px;
+  margin-left: -44px;
+  margin-top: 410px;
+  position: absolute;
+ }
+
+.elektoroValve.--active {
+  transform: scale(0.44);
+  background-size: cover;
+  background-image: url(./elektroValve/elektrovalve--active.png);
+  z-index: 2;
+
+}
+
+.elektoroValve.--inactive {
+  transform: scale(0.44);
+  background-size: cover;
+  background-image: url(./elektroValve/elektrovalve--inactive.png);
+  z-index: 2;
+}
+
+.flow {
+  position: absolute;
+  width: 170px;
+  height: 100px;
+  margin-left: 317px;
+  margin-top: 506px;
+}
+
+.flow.--active {
+  transform: scale(0.27);
+  background-size: cover;
+  background-image: url(./flow/flow--active.png);
+  z-index: 2;
+ 
+
+}
+
+.flow.--inactive {
+  transform: scale(0.27);
+  background-size: cover;
+  background-image: url(./flow/flow--inactive.png);
+  z-index: 2;
+ 
+}
+
+.pump {
+  position: absolute;
+  width: 220px;
+  height: 110px;
+  margin-left: 240px;
+  margin-top: 603px;
+}
+
+.pump.--active {
+   background-size: cover;
+  background-image: url(./pump/pump--active.png);
+  z-index: 2;
+ }
+
+.pump.--inactive {
+   background-size: cover;
+  background-image: url(./pump/pump--inactive-nowire.png);
+  z-index: 2;
+ }
+
+.coilHeater {
+  position: absolute;
+  width: 142px;
+  height: 150px;
+  margin-left: 380px;
+  margin-top: 508px;
+}
+
+
+.coilHeater.--active {
+  transform: scale(0.54);
+  background-size: cover;
+  background-image: url(./coilHeater/coil_heater_withwire--active.png);
+  z-index: 2;
+ }
+
+.coilHeater.--inactive {
+  transform: scale(0.52);
+  background-size: cover;
+  background-image: url(./coilHeater/coil_heater_withwire--inactive.png);
+  z-index: 2;
+ 
+}
+.valve_V102 {
+  position: absolute;
+  width: 168px;
+  height: 181px;
+  margin-left: 169px;
+  margin-top: 185px;
+}
+
+.valve_V102.--active {
+  background-size: cover;
+  background-image: url(./valve_V102/valve_v102--active-transparentmiddle.png);
+  z-index: 2;
+}
+
+.valve_V102.--inactive {
+   background-size: cover;
+  background-image: url(./valve_V102/valve_v102--inactive.png);
+  z-index: 2;
+}
+
+
+.container-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   }
+   
+   .container-button__button {
+    font-family: "FontAwesome";
+    text-shadow: 0px 1px 1px rgba(250,250,250,0.1);
+    font-size: 20pt;
+    display: block;
+    position: relative;
+    text-decoration: none;
+    box-shadow: 0px 3px 0px 0px rgb(34,34,34),
+    0px 7px 10px 0px rgb(17,17,17),
+    inset 0px 1px 1px 0px rgba(250, 250, 250, .2), 
+    inset 0px -12px 35px 0px rgba(0, 0, 0, .5);
+    width: 40px;
+    height: 40px;
+    border: 0;
+    top: 15px;
+    color: rgba(201, 13, 0, 0.986);
+    border-radius: 35px;
+    text-align: center;
+    line-height: 40px;
+    background-color: rgb(83,87,93);
+    transition: color 350ms ease, text-shadow 350ms;
+    -o-transition: color 350ms ease, text-shadow 350ms;
+    -moz-transition: color 350ms ease, text-shadow 350ms;
+    -webkit-transition: color 350ms ease, text-shadow 350ms;
+    cursor: pointer;
+   }
+     
+   .container-button__button:before {
+    content: "";
+    /* width: 80px; */
+    height: 80px;
+    display: block;
+    z-index: -2;
+    position: absolute;
+    background-color: rgb(26,27,29);
+    left: -5px;
+    top: -2px;
+    border-radius: 40px;
+    box-shadow: 0px 1px 0px 0px rgba(250,250,250,0.1), 
+    inset 0px 1px 2px rgba(0, 0, 0, 0.5);
+   }
+   
+   .container-button__button--active {
+     box-shadow: 0px 0px 0px 0px rgb(34,34,34),
+       0px 3px 7px 0px rgb(17,17,17), 
+       inset 0px 1px 1px 0px rgba(250, 250, 250, .2), 
+       inset 0px -10px 35px 5px rgba(0, 0, 0, .5);
+     background-color: rgb(83,87,93);
+     color: rgb(141, 196, 69);
+     text-shadow: 0px 0px 3px rgb(250, 250, 250);
+     cursor: pointer;
+   }
+

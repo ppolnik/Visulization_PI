@@ -14,25 +14,25 @@ body{
 
 }
 
-.CyberAttack{
+.SystemStateOK{
   width: 320px;
   height: 120px;
-  padding: 10px 0 10px 15px;
+  padding: 10px 10px 10px 10px;
   margin-bottom: 150px;
   border-color: #53575d;
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(141, 196, 69, 0.75);
   border-style: solid;
   border-radius: 3px;
   border-width: 5px;
   outline: 0;
   transition: all .3s ease-in-out;
-  align-items: center;
   display: flex;
   justify-content: center;
+  /* align-items: center; */
   
 }
 
-.CyberAttack__description{
+.SystemStateOK__description{
   color: rgb(83,87,93);
   font-size: 25px;
   padding: 10px;
@@ -41,16 +41,16 @@ body{
 }
 
 
-.CyberAttack__dotted-horizontal{
+.SystemStateOK__dotted-horizontal{
   position: absolute;
   font-size: 30px;
-  margin-left: -630px; 
-  margin-top: -550px;
+  margin-left: -565px; 
+  margin-top: -560px;
   color: white;
   z-index: 99999;
 }
 
-.CyberAttack__dotted-vertical{
+.SystemStateOK__dotted-vertical{
   position: absolute;
   font-size: 30px;
   margin-left: -870px; 
@@ -106,8 +106,8 @@ body{
 .WaterLevelTank__dotted-horizontal{
   position: absolute;
   font-size: 30px;
-  margin-left: -630px; 
-  margin-top: -360px;
+  margin-left: -600px; 
+  margin-top: -110px;
   color: white;
   z-index: 99999;
 }
@@ -115,8 +115,8 @@ body{
 .WaterLevelTank__dotted-vertical{
   position: absolute;
   font-size: 30px;
-  margin-left: -870px; 
-  margin-top: -255px;
+  margin-left: -840px; 
+  margin-top: 20px;
   color: white;
   z-index: 99999;
   transform: rotate(90deg);

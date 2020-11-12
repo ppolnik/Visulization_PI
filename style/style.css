@@ -5,6 +5,7 @@ body{
 .container-main{
   background-image: url(./background.jpg);
   background-size: cover;
+  padding-bottom: 10px;
 }
 
 .description1{
@@ -44,7 +45,7 @@ body{
 .systemStateOK__dotted-horizontal{
   position: absolute;
   font-size: 30px;
-  margin-left: -565px; 
+  margin-left: -630px; 
   margin-top: -560px;
   color: white;
   z-index: 99999;
@@ -53,7 +54,7 @@ body{
 .systemStateOK__dotted-vertical{
   position: absolute;
   font-size: 30px;
-  margin-left: -880px; 
+  margin-left: -1020px; 
   margin-top: -500px;
   color: white;
   z-index: 99999;
@@ -106,8 +107,8 @@ body{
 .waterLevelTank__dotted-horizontal{
   position: absolute;
   font-size: 30px;
-  margin-left: -600px; 
-  margin-top: -110px;
+  margin-left: -705px; 
+  margin-top: -120px;
   color: white;
   z-index: 99999;
 }
@@ -115,7 +116,7 @@ body{
 .waterLevelTank__dotted-vertical{
   position: absolute;
   font-size: 30px;
-  margin-left: -840px; 
+  margin-left: -1020px; 
   margin-top: 20px;
   color: white;
   z-index: 99999;
@@ -525,6 +526,7 @@ position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: -40px;
    }
    
    .container-button__button {
@@ -579,4 +581,33 @@ position: absolute;
      text-shadow: 0px 0px 3px rgb(250, 250, 250);
      cursor: pointer;
    }
+
+   .footer{
+     display: flex;
+     justify-content: flex-end;
+     flex-direction: row;
+     margin-top: -5px;
+   }
+
+
+   .footer__logoMT{
+     height: 55px;
+     width: 55px;
+     opacity: 0.3;
+     padding-right: 65px;
+     
+   }
+
+   .footer__logoAI-METH{
+    height: 55px;
+    width: 55px;
+    opacity: 0.3;
+    padding-left: 65px;
+  }
+
+  .footer__descriptionShort{
+    padding-left: 95px;
+    padding-right: 65px;
+    padding-top: 10px;
+  }
 

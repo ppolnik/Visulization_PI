@@ -20,7 +20,7 @@ var Manometr = /** @class */ (function () {
     return Manometr;
 }());
 var Visualization = /** @class */ (function () {
-    function Visualization(startButton, arrow, liquids, elektroValve, pump, coilHeater, valve_V102, flow, waterValue, tempHeatValue) {
+    function Visualization(startButton, arrow, liquids, elektroValve, pump, coilHeater, valve_V102, flow, waterValue, tempHeatValue, systemStateOK, systemStateOK__dotted_vertical, systemStateOK__dotted_horizontal, cyberAttack, cyberAttack__dotted_vertical, cyberAttack__dotted_horizontal) {
         this.startButton = startButton;
         this.arrow = new Manometr(arrow);
         this.liquids = [].map.call(liquids, function (liquid) { return new WaterContainer(liquid); });
@@ -31,6 +31,12 @@ var Visualization = /** @class */ (function () {
         this.flow = flow;
         this.waterValue = waterValue;
         this.tempHeatValue = tempHeatValue;
+        this.systemStateOK = systemStateOK;
+        this.systemStateOK__dotted_horizontal = systemStateOK__dotted_horizontal;
+        this.systemStateOK__dotted_vertical = systemStateOK__dotted_vertical;
+        this.cyberAttack = cyberAttack;
+        this.cyberAttack__dotted_horizontal = cyberAttack__dotted_horizontal;
+        this.cyberAttack__dotted_vertical = cyberAttack__dotted_vertical;
         this.addListeners();
     }
     // click button and start simulation
@@ -39,34 +45,46 @@ var Visualization = /** @class */ (function () {
         setInterval(function () {
             var httpRequest = new XMLHttpRequest();
             httpRequest.onreadystatechange = function (data) {
-                // Sprawdzenie czy połączenie zostało nawiązane i przebieglo pomyslnie
+                // Check if connect has been sucessful
                 if (httpRequest.readyState == 4) {
                     if (httpRequest.status == 200) {
                         console.log("Połączanie zostało nawiązne");
-                        // Parsownie - uzyskiwanie danych w postaci pliku JSON z pliku data.html
+                        // Parsing - getting data as JSON file from data.html
                         var dataPLC = JSON.parse(httpRequest.response);
-                        // Zapisywanie danych w postaci zmiennych aby przekazac je do kodu              // + oznacza kowersje na typ Number
-                        // Stany logiczne zaworow
+                        // Saving data as variables to pass them to the code      // + means conversion to the Number type
+                        // Logical states of the valves
                         _this.checkElectroValve(+dataPLC.elektrovalve_Logical_State);
                         _this.checkcoilHeater(+dataPLC.coilHeater_Logical_State);
                         _this.checkFlow(+dataPLC.flow__Logical_State);
                         _this.checkPump(+dataPLC.pump_Logical_State);
                         _this.checkValve_V102(+dataPLC.valveV102_Logical_State);
-                        // poziomy cieczy w zbiornikach i wyswietlana wartosc
+                        // liquid levels in tanks and displayed value
                         _this.displayWaterLevel(dataPLC.tanks_Analog_Value);
                         _this.changeWaterLevel(+dataPLC.tanks_Analog_Value);
-                        // wartosc temperatury grzalki w zbiorniku
+                        // temperature value heater on tank 2
                         _this.dipslayTempHeatValue(dataPLC.heater_Value);
-                        // wartosc cisnienia manometru z sygnalu anaogowego
+                        // manometer analog value (Pressure)
                         _this.changeArrowDeg(+dataPLC.manometr_Analog_Value);
+                        // information about state of system (ok or cyberattack)
+                        _this.systemState(+dataPLC.cyberAttack);
                     }
                     else
-                        console.log("Wystąpił błąd podczas ładowania elemntu ( TIP - Sprawdz poprawność przekazywanych wartosci )");
+                        console.log("There was an error loading the item (TIP - Validate the transferred values)");
                 }
             };
             httpRequest.open("GET", "data.html", true);
             httpRequest.send();
         }, 2000);
+    };
+    Visualization.prototype.systemState = function (systemStateSignal) {
+        if (systemStateSignal == 1) {
+            this.systemStateOK.style.visibility = "visible";
+            this.cyberAttack.style.visibility = "hidden";
+        }
+        else {
+            this.cyberAttack.style.visibility = "visible";
+            this.systemStateOK.style.visibility = "hidden";
+        }
     };
     // check stanow elements in PLC singal ( 0 (inactive) or 1(active) )
     Visualization.prototype.checkElectroValve = function (elektrovalvePLCLogicalState) {
@@ -140,14 +158,8 @@ var Visualization = /** @class */ (function () {
     Visualization.prototype.addListeners = function () {
         this.startButton.addEventListener("click", this.isActiveProces.bind(this));
     };
-    Visualization.prototype.getRandomNumber = function () {
-        return Math.floor(Math.random() * 100 + 1);
-    };
-    Visualization.prototype.getRandomNumberWithRange = function (min, max) {
-        return Math.floor(Math.random() * (max - min + 1) + min);
-    };
     Visualization.prototype.changeWaterLevel = function (analogValuePLC1Number) {
-        // this.liquids.forEach((liquid) => { // Rozdzielenie tank1 i tank 2   
+        // this.liquids.forEach((liquid) => { // Rozdzielenie tank1 i tank 2
         this.liquids[0].changeWaterLevel(analogValuePLC1Number);
         var waterLevelTank2Coperation = 100 - analogValuePLC1Number;
         this.liquids[1].changeWaterLevel(waterLevelTank2Coperation);
@@ -162,16 +174,12 @@ var Visualization = /** @class */ (function () {
         clearInterval(this.manometrInerval);
     };
     Visualization.prototype.interval = function () {
-        // this.waterLevelInterval = setInterval(
-        //   this.changeWaterLevel.bind(this),
-        //   5000
-        // );
         this.manometrInerval = setInterval(this.changeArrowDeg.bind(this), 4000);
     };
     Visualization.prototype.activateButton = function () {
         this.startButton.classList.add("container-button__button--active");
     };
-    // check the element have class and start proces or
+    // check the element have class and start proces
     Visualization.prototype.isActiveProces = function () {
         this.startButton.classList.contains("container-button__button--active")
             ? this.stopProces()
@@ -203,6 +211,12 @@ var pump = document.querySelector(".pump");
 var coilHeater = document.querySelector(".coilHeater");
 var valve_V102 = document.querySelector(".valve_V102");
 var flow = document.querySelector(".flow");
-var waterValue = (document.querySelector(".WaterLevelTank__value"));
+var cyberAttack = document.querySelector(".cyberAttack");
+var cyberAttack__dotted_vertical = (document.querySelector(".cyberAttack__dotted-vertical"));
+var cyberAttack__dotted_horizontal = (document.querySelector(".cyberAttack__dotted-horizontal"));
+var systemStateOK = document.querySelector(".systemStateOK");
+var systemStateOK__dotted_vertical = (document.querySelector(".systemStateOK__dotted-vertical"));
+var systemStateOK__dotted_horizontal = (document.querySelector(".systemStateOK__dotted-horizontal"));
+var waterValue = (document.querySelector(".waterLevelTank__value"));
 var tempHeatValue = (document.querySelector(".tempHeat__value"));
-var visualization1 = new Visualization(startButton, arrow, liquids, elektroValve, pump, coilHeater, valve_V102, flow, waterValue, tempHeatValue);
+var visualization1 = new Visualization(startButton, arrow, liquids, elektroValve, pump, coilHeater, valve_V102, flow, waterValue, tempHeatValue, cyberAttack, cyberAttack__dotted_horizontal, cyberAttack__dotted_vertical, systemStateOK, systemStateOK__dotted_horizontal, systemStateOK__dotted_vertical);

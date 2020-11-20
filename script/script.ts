@@ -1,18 +1,15 @@
 class WaterContainer {
   waterContainer: HTMLElement;
 
-
   constructor(waterContainer: HTMLElement) {
     this.waterContainer = waterContainer;
     console.log(waterContainer);
-}
+  }
 
   changeWaterLevel(waterLevel: number) {
-
     this.waterContainer.style.height = waterLevel + "%";
 
     console.log(this.waterContainer);
-
   }
 }
 
@@ -43,6 +40,12 @@ class Visualization {
   WaterLevelInterval: number;
   tempHeatValue: HTMLInputElement;
   tempHealValueInterval: number;
+  systemStateOK: HTMLElement;
+  systemStateOK__dotted_vertical: HTMLElement;
+  systemStateOK__dotted_horizontal: HTMLElement;
+  cyberAttack: HTMLElement;
+  cyberAttack__dotted_vertical: HTMLElement;
+  cyberAttack__dotted_horizontal: HTMLElement;
 
   constructor(
     startButton: HTMLElement,
@@ -54,7 +57,13 @@ class Visualization {
     valve_V102: HTMLElement,
     flow: HTMLElement,
     waterValue: HTMLInputElement,
-    tempHeatValue: HTMLInputElement
+    tempHeatValue: HTMLInputElement,
+    systemStateOK: HTMLElement,
+    systemStateOK__dotted_vertical: HTMLElement,
+    systemStateOK__dotted_horizontal: HTMLElement,
+    cyberAttack: HTMLElement,
+    cyberAttack__dotted_vertical: HTMLElement,
+    cyberAttack__dotted_horizontal: HTMLElement
   ) {
     this.startButton = startButton;
     this.arrow = new Manometr(arrow);
@@ -66,6 +75,12 @@ class Visualization {
     this.flow = flow;
     this.waterValue = waterValue;
     this.tempHeatValue = tempHeatValue;
+    this.systemStateOK = systemStateOK;
+    this.systemStateOK__dotted_horizontal = systemStateOK__dotted_horizontal;
+    this.systemStateOK__dotted_vertical = systemStateOK__dotted_vertical;
+    this.cyberAttack = cyberAttack;
+    this.cyberAttack__dotted_horizontal = cyberAttack__dotted_horizontal;
+    this.cyberAttack__dotted_vertical = cyberAttack__dotted_vertical;
 
     this.addListeners();
   }
@@ -73,38 +88,52 @@ class Visualization {
   // click button and start simulation
 
   selectData(): void {
-      setInterval(() => {
-        const httpRequest = new XMLHttpRequest();
-        httpRequest.onreadystatechange = (data) => {
-          // Check if connect has been sucessful
-          if (httpRequest.readyState == 4) {
-            if (httpRequest.status == 200) {
-              console.log("Połączanie zostało nawiązne");
-              // Parsing - getting data as JSON file from data.html
-              const dataPLC = JSON.parse(httpRequest.response);
-               // Saving data as variables to pass them to the code      // + means conversion to the Number type
-               // Logical states of the valves
-              this.checkElectroValve(+dataPLC.elektrovalve_Logical_State);
-              this.checkcoilHeater(+dataPLC.coilHeater_Logical_State);
-              this.checkFlow(+dataPLC.flow__Logical_State);
-              this.checkPump(+dataPLC.pump_Logical_State);
-              this.checkValve_V102(+dataPLC.valveV102_Logical_State);
-              // liquid levels in tanks and displayed value
-              this.displayWaterLevel(dataPLC.tanks_Analog_Value);
-              this.changeWaterLevel(+dataPLC.tanks_Analog_Value);
-              // temperature value heater on tank 2
-              this.dipslayTempHeatValue(dataPLC.heater_Value);
-              // manometer analog value (Pressure)
-              this.changeArrowDeg(+dataPLC.manometr_Analog_Value);
-            } else
-              console.log(
-                "There was an error loading the item (TIP - Validate the transferred values)"              );
-          }
-        };
+    setInterval(() => {
+      const httpRequest = new XMLHttpRequest();
+      httpRequest.onreadystatechange = (data) => {
+        // Check if connect has been sucessful
+        if (httpRequest.readyState == 4) {
+          if (httpRequest.status == 200) {
+            console.log("Połączanie zostało nawiązne");
+            // Parsing - getting data as JSON file from data.html
+            const dataPLC = JSON.parse(httpRequest.response);
+            // Saving data as variables to pass them to the code      // + means conversion to the Number type
+            // Logical states of the valves
+            this.checkElectroValve(+dataPLC.elektrovalve_Logical_State);
+            this.checkcoilHeater(+dataPLC.coilHeater_Logical_State);
+            this.checkFlow(+dataPLC.flow__Logical_State);
+            this.checkPump(+dataPLC.pump_Logical_State);
+            this.checkValve_V102(+dataPLC.valveV102_Logical_State);
+            // liquid levels in tanks and displayed value
+            this.displayWaterLevel(dataPLC.tanks_Analog_Value);
+            this.changeWaterLevel(+dataPLC.tanks_Analog_Value);
+            // temperature value heater on tank 2
+            this.dipslayTempHeatValue(dataPLC.heater_Value);
+            // manometer analog value (Pressure)
+            this.changeArrowDeg(+dataPLC.manometr_Analog_Value);
+            // information about state of system (ok or cyberattack)
+            this.systemState(+dataPLC.cyberAttack);
+          } else
+            console.log(
+              "There was an error loading the item (TIP - Validate the transferred values)"
+            );
+        }
+      };
 
-        httpRequest.open("GET", "data.html", true);
-        httpRequest.send();
-      }, 2000);
+      httpRequest.open("GET", "data.html", true);
+      httpRequest.send();
+    }, 2000);
+  }
+
+  systemState(systemStateSignal: number): void {
+  
+    if(systemStateSignal == 1) {
+      this.systemStateOK.style.visibility = "visible";
+      this.cyberAttack.style.visibility = "hidden";
+    } else {
+      this.cyberAttack.style.visibility = "visible"
+      this.systemStateOK.style.visibility = "hidden"
+    }
   }
 
   // check stanow elements in PLC singal ( 0 (inactive) or 1(active) )
@@ -119,49 +148,43 @@ class Visualization {
   }
 
   checkPump(pumpPLCLogicalState: number): void {
-    
-      if (pumpPLCLogicalState === 1) {
-        this.pump.classList.add("--active");
-        this.pump.classList.remove("--inactive");
-      } else {
-        this.pump.classList.add("--inactive");
-        this.pump.classList.remove("--active");
-      }
-    
+    if (pumpPLCLogicalState === 1) {
+      this.pump.classList.add("--active");
+      this.pump.classList.remove("--inactive");
+    } else {
+      this.pump.classList.add("--inactive");
+      this.pump.classList.remove("--active");
+    }
   }
 
   checkValve_V102(valveV102LogicalState: number): void {
-    
-      if (valveV102LogicalState === 1) {
-        this.valve_V102.classList.add("--active");
-        this.valve_V102.classList.remove("--inactive");
-      } else {
-        this.valve_V102.classList.add("--inactive");
-        this.valve_V102.classList.remove("--active");
-      }
+    if (valveV102LogicalState === 1) {
+      this.valve_V102.classList.add("--active");
+      this.valve_V102.classList.remove("--inactive");
+    } else {
+      this.valve_V102.classList.add("--inactive");
+      this.valve_V102.classList.remove("--active");
     }
-
-  checkcoilHeater(coilHeaterPLCLogicalState :number): void {
-   
-      if ( coilHeaterPLCLogicalState === 1) {
-        this.coilHeater.classList.add("--active");
-        this.coilHeater.classList.remove("--inactive");
-      } else {
-        this.coilHeater.classList.add("--inactive");
-        this.coilHeater.classList.remove("--active");
-      }
-    
   }
 
-  checkFlow(flowPLCLogicalState :number): void {
-    
-      if (flowPLCLogicalState === 1) {
-        this.flow.classList.add("--active");
-        this.flow.classList.remove("--inactive");
-      } else {
-        this.flow.classList.add("--inactive");
-        this.flow.classList.remove("--active");
-      }
+  checkcoilHeater(coilHeaterPLCLogicalState: number): void {
+    if (coilHeaterPLCLogicalState === 1) {
+      this.coilHeater.classList.add("--active");
+      this.coilHeater.classList.remove("--inactive");
+    } else {
+      this.coilHeater.classList.add("--inactive");
+      this.coilHeater.classList.remove("--active");
+    }
+  }
+
+  checkFlow(flowPLCLogicalState: number): void {
+    if (flowPLCLogicalState === 1) {
+      this.flow.classList.add("--active");
+      this.flow.classList.remove("--inactive");
+    } else {
+      this.flow.classList.add("--inactive");
+      this.flow.classList.remove("--active");
+    }
   }
 
   // clear all styles when start simulation
@@ -179,32 +202,30 @@ class Visualization {
   // display real number with water level in subtitle on continer
 
   displayWaterLevel(analogValueTank1Inscription: string): void {
- 
-      this.waterValue.value = analogValueTank1Inscription;
-   
+    this.waterValue.value = analogValueTank1Inscription;
   }
- 
-  dipslayTempHeatValue(tempeHeatValueTank2Inscription: string) :void {
 
-      this.tempHeatValue.value = tempeHeatValueTank2Inscription.toString();
+  dipslayTempHeatValue(tempeHeatValueTank2Inscription: string): void {
+    this.tempHeatValue.value = tempeHeatValueTank2Inscription.toString();
   }
 
   addListeners(): void {
     this.startButton.addEventListener("click", this.isActiveProces.bind(this));
   }
 
-
   changeWaterLevel(analogValuePLC1Number: number) {
-    // this.liquids.forEach((liquid) => { // Rozdzielenie tank1 i tank 2   
+    // this.liquids.forEach((liquid) => { // Rozdzielenie tank1 i tank 2
 
-      this.liquids[0].changeWaterLevel(analogValuePLC1Number);
-      let waterLevelTank2Coperation = 100 - analogValuePLC1Number ;
-      this.liquids[1].changeWaterLevel(waterLevelTank2Coperation);
+    this.liquids[0].changeWaterLevel(analogValuePLC1Number);
+    let waterLevelTank2Coperation = 100 - analogValuePLC1Number;
+    this.liquids[1].changeWaterLevel(waterLevelTank2Coperation);
     // });
   }
 
   changeArrowDeg(analogValuePressureManometer: number) {
-    console.log("analogValuePressureManometer = " + analogValuePressureManometer);
+    console.log(
+      "analogValuePressureManometer = " + analogValuePressureManometer
+    );
     this.arrow.animateArrow(analogValuePressureManometer);
   }
 
@@ -214,7 +235,6 @@ class Visualization {
   }
 
   interval() {
- 
     this.manometrInerval = setInterval(this.changeArrowDeg.bind(this), 4000);
   }
 
@@ -222,7 +242,7 @@ class Visualization {
     this.startButton.classList.add("container-button__button--active");
   }
 
-  // check the element have class and start proces 
+  // check the element have class and start proces
 
   isActiveProces() {
     this.startButton.classList.contains("container-button__button--active")
@@ -263,8 +283,24 @@ const pump = <HTMLElement>document.querySelector(".pump");
 const coilHeater = <HTMLElement>document.querySelector(".coilHeater");
 const valve_V102 = <HTMLElement>document.querySelector(".valve_V102");
 const flow = <HTMLElement>document.querySelector(".flow");
+const cyberAttack = <HTMLElement>document.querySelector(".cyberAttack");
+const cyberAttack__dotted_vertical = <HTMLElement>(
+  document.querySelector(".cyberAttack__dotted-vertical")
+);
+const cyberAttack__dotted_horizontal = <HTMLElement>(
+  document.querySelector(".cyberAttack__dotted-horizontal")
+);
+
+const systemStateOK = <HTMLElement>document.querySelector(".systemStateOK");
+const systemStateOK__dotted_vertical = <HTMLElement>(
+  document.querySelector(".systemStateOK__dotted-vertical")
+);
+const systemStateOK__dotted_horizontal = <HTMLElement>(
+  document.querySelector(".systemStateOK__dotted-horizontal")
+);
+
 const waterValue = <HTMLInputElement>(
-  document.querySelector(".WaterLevelTank__value")
+  document.querySelector(".waterLevelTank__value")
 );
 const tempHeatValue = <HTMLInputElement>(
   document.querySelector(".tempHeat__value")
@@ -280,8 +316,11 @@ const visualization1 = new Visualization(
   valve_V102,
   flow,
   waterValue,
-  tempHeatValue
+  tempHeatValue,
+  cyberAttack,
+  cyberAttack__dotted_horizontal,
+  cyberAttack__dotted_vertical,
+  systemStateOK,
+  systemStateOK__dotted_horizontal,
+  systemStateOK__dotted_vertical
 );
-
-
-  

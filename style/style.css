@@ -5,10 +5,66 @@ body{
 .container-main{
   background-image: url(./background.jpg);
   background-size: cover;
+  padding-bottom: 10px;
 }
 
-.WaterLevelTank{
-  display: inline-block;
+.description1{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+}
+
+.systemStateOK{
+  width: 320px;
+  height: 120px;
+  padding: 10px 10px 10px 10px;
+  margin-bottom: 150px;
+  border-color: #53575d;
+  background: rgba(141, 196, 69, 0.75);
+  border-style: solid;
+  border-radius: 3px;
+  border-width: 5px;
+  outline: 0;
+  transition: all .3s ease-in-out;
+  display: flex;
+  justify-content: center;
+  visibility: hidden;
+  /* align-items: center; */
+  
+}
+
+.systemStateOK__description{
+  color: rgb(55, 56, 59);
+  font-size: 25px;
+  padding: 10px;
+  margin-bottom: 0;
+  font-family: 'Oswald', sans-serif;
+}
+
+
+.systemStateOK__dotted-horizontal{
+  position: absolute;
+  font-size: 30px;
+  margin-left: -630px; 
+  margin-top: -560px;
+  color: white;
+  visibility: hidden;
+}
+
+.systemStateOK__dotted-vertical{
+  position: absolute;
+  font-size: 30px;
+  margin-left: -1020px; 
+  margin-top: -500px;
+  color: white;
+  visibility: hidden;
+  transform: rotate(90deg);
+
+
+}
+
+.waterLevelTank{
   width: 320px;
   height: 120px;
   padding: 10px 0 10px 15px;
@@ -26,7 +82,7 @@ body{
   
 }
 
-.WaterLevelTank__description{
+.waterLevelTank__description{
   color: rgb(83,87,93);
   font-size: 25px;
   padding: 10px;
@@ -34,7 +90,7 @@ body{
   font-family: 'Oswald', sans-serif;
 }
 
-.WaterLevelTank__value{
+.waterLevelTank__value{
   font-family: 'Open Sans',  sans-serif;
   font-size: 40px;
   margin-bottom: 10px;
@@ -45,20 +101,24 @@ body{
   text-align: center;
  }
 
-.WaterLevelTank__dotted-horizontal{
+.waterLevelTank__dotted{
+  margin-top: 100px;
+}
+
+.waterLevelTank__dotted-horizontal{
   position: absolute;
   font-size: 30px;
-  margin-left: -630px; 
-  margin-top: -360px;
+  margin-left: -705px; 
+  margin-top: -120px;
   color: white;
   z-index: 99999;
 }
 
-.WaterLevelTank__dotted-vertical{
+.waterLevelTank__dotted-vertical{
   position: absolute;
   font-size: 30px;
-  margin-left: -870px; 
-  margin-top: -255px;
+  margin-left: -1020px; 
+  margin-top: 20px;
   color: white;
   z-index: 99999;
   transform: rotate(90deg);
@@ -66,8 +126,64 @@ body{
 
 }
 
+.description2{
+  display: flex;
+  /* justify-content: space-between; */
+  flex-direction: column;
+
+}
+
+.cyberAttack{
+  width: 320px;
+  height: 160px;
+  padding: 10px 0px 10px 10px;
+  margin-bottom: 70px;
+  border-color: #53575d;
+  background: rgba(199, 39, 38, 0.85);
+  border-style: solid;
+  border-radius: 3px;
+  border-width: 5px;
+  outline: 0;
+  transition: all .3s ease-in-out;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+  visibility: hidden;
+}
+
+.cyberAttack__hackerIcon{
+  transform :scale(0.95);
+  margin-bottom: -25px;
+ }
+
+.cyberAttack__description{
+  color: rgb(20, 17, 17);
+  font-size: 25px;
+  font-family: 'Oswald', sans-serif;
+} 
+
+.cyberAttack__dotted-horizontal{
+  position: absolute;
+  font-size: 25px;
+  margin-left: 410px;
+  margin-top: -565px;
+  color: white;
+  visibility: hidden;
+}
+.cyberAttack__dotted-vertical{
+  position: absolute;
+  font-size: 30px;
+  margin-left: 955px;
+  margin-top: -485px;
+  color: white;
+  transform: rotate(90deg);
+  visibility: hidden;
+
+}
+
 .tempHeat{
-  display: inline-block;
   width: 255px;
   height: 120px;
   padding: 10px 0 10px 15px;
@@ -103,18 +219,18 @@ body{
   text-align: center;
 }
 
-.dotted-horizontal{
+.tempHeat__dotted-horizontal{
   position: absolute;
   font-size: 25px;
-  margin-left: 775px;
-  margin-top: 465px;
+  margin-left: 685px;
+  margin-top: 455px;
   color: white;
 }
-.dotted-vertical{
+.tempHeat__dotted-vertical{
   position: absolute;
   font-size: 30px;
-  margin-left: 1050px;
-  margin-top: 320px;
+  margin-left: 965px;
+  margin-top: 435px;
   color: white;
   transform: rotate(90deg);
 }
@@ -411,6 +527,7 @@ position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: -40px;
    }
    
    .container-button__button {
@@ -465,4 +582,33 @@ position: absolute;
      text-shadow: 0px 0px 3px rgb(250, 250, 250);
      cursor: pointer;
    }
+
+   .footer{
+     display: flex;
+     justify-content: flex-end;
+     flex-direction: row;
+     margin-top: -5px;
+   }
+
+
+   .footer__logoMT{
+     height: 55px;
+     width: 55px;
+     opacity: 0.3;
+     padding-right: 65px;
+     
+   }
+
+   .footer__logoAI-METH{
+    height: 55px;
+    width: 55px;
+    opacity: 0.3;
+    padding-left: 65px;
+  }
+
+  .footer__descriptionShort{
+    padding-left: 95px;
+    padding-right: 65px;
+    padding-top: 10px;
+  }
 
